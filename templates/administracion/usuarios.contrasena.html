@@ -1,0 +1,24 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Cambiar contraseña de {{ usuario }}</h4>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="password1" name="new_password1" required>
+        <label for="new_password1">Nueva contraseña</label>
+        <div class="form-text">{{ form.new_password1.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="new_password2" name="new_password2" required>
+        <label for="new_password2">Confirmar nueva contraseña</label>
+        <div class="form-text">{{ form.new_password2.errors }}</div>
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-success btn-lg" style="background-color: #20ae00;" type="submit" name="submit">
+            Cambiar contraseña
+        </button>
+        <a href="/administracion/usuarios/" class="btn btn-lg btn-danger">Cancelar</a>
+    </div>
+</form>
+{% endblock subcontent %}

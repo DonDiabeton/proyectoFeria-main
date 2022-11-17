@@ -1,0 +1,55 @@
+
+@media only screen and (max-width: 100%) {
+  #navbarTogglerDemo02 {
+    position: fixed;
+    top: 0;
+    left: 15px;
+    z-index: 99;
+    width: 280px;
+    height: 100%;
+    background-color: #ddd;
+    overflow: auto;
+  }
+  .menu-overlay {
+    display: none;
+    background-color: #000;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    /* IE7 & 8 */
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 49;
+  }
+
+}
+
+.div-img {width:50%; transform: rotate(30deg); }
+
+.welcome-layer-3 {
+    height: 100%;
+    /* left: 0; */
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.home3-layer-1 {
+    right: 10%;
+    top: -18%;
+}
+.welcome-layer-3 > div {
+    position: absolute;
+}
+
+
+
+.bg-1 {
+ background-image: url("http://quomodosoft.com/html/applic/applic/assets/img/background/green_bg.png");
+ background-color: #cccccc;
+}
+.bg-2 {
+ background-image: url("http://quomodosoft.com/html/applic/applic/assets/img/bg-layers/map-layer.png");
+ background-color: #cccccc;
+}

@@ -1,0 +1,72 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Detalle de {{ compra }}</h4>
+    <div class="row pt-3">
+        <div class="col-md-9 container">
+            <div class="row pt-2">
+                <label class="col-sm-2 text-end">
+                    <strong>Fábrica:</strong>
+                </label>
+                <div class="col-sm-9">
+                    {{ detalles.0.producto.fabrica }}
+                </div>
+            </div>
+            <div class="row pt-2">
+                <label class="col-sm-2 text-end">
+                    <strong>Estado:</strong>
+                </label>
+                <div class="col-sm-9">
+                    {{ estados|get_value:pedido.estado }}
+                </div>
+            </div>
+            <div class="row pt-2">
+                <label class="col-sm-2 text-end">
+                    <strong>Fecha:</strong>
+                </label>
+                <div class="col-sm-9">
+                    {{ pedido.fecha }}
+                </div>
+            </div>
+
+            <div class="row pt-2">
+                <label class="col-sm-2 text-end">
+                    <strong>Usuario:</strong>
+                </label>
+                <div class="col-sm-9">
+                    {{ pedido.usuario }}
+                </div>
+            </div>
+            <br>
+            <table class="table table-hover">
+                <thead>
+                    <th>Cant.</th>
+                    <th>Descripción</th>
+                    <th>P. de fábrica</th>
+                    <th>Subtotal</th>
+                </thead>
+                <tbody>
+                    {% for item in detalles %}
+                    <tr>
+                        <td>{{ item.cantidad }}</td>
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>{{ item.producto.moneda }} {{ item.producto.precio_pedido }}</td>
+                        <td>{{ item.producto.moneda }} {{ item.total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <th></th>
+                    <th></th>
+                    <th>Total</th>
+                    <th>Q {{ pedido.total }}</th>
+                </tfoot>
+            </table>
+            <div class="text-center pt-2">
+                <a href="/administracion/pedidos/" class="btn btn-warning btn-block">
+                    Volver al listado de pedidos
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

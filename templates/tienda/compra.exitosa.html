@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Pedido creado{% endblock title %}
+
+
+{% block main %}
+
+
+
+    <div class="row pt-3">
+        <div class="col-md-12 container text-center" style="height: calc(100% - 50px);">
+            <br>
+            <h2>¡Gracias por realizar tu pedido!</h2>
+            <p>
+                Te estaremos enviando el pedido a la dirección ingresada.
+            </p>
+            <p>
+                Recuerda que el envío puede demorar entre 2 y 3 días laborables.
+            </p>
+            <br>
+            <p>
+                En 20 segundos será redirigido al catálogo de productos<br>
+                Si no es redirigido automáticamente, haga click en
+                <a href="/tienda/">Volver el catálogo</a>
+            </p>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(event) {
+            setTimeout(function() {
+                window.location.href = "/tienda/";
+            }, 20000);
+        });
+    </script>
+{% endblock main %}

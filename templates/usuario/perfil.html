@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Mi perfil{% endblock title %}
+
+
+{% block main %}
+<div class="row pt-3">
+    <div class="col-md-3">
+        <h4>Hola {{ request.user.first_name }}</h4>
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action {% if section == 'perfil' %}active{% endif %}" href="/perfil/">Actualizar perfil</a>
+            <a class="list-group-item list-group-item-action {% if section == 'contraseña' %}active{% endif %}" href="/perfil/contrasena/">Cambiar contraseña</a>
+            {% if request.user.tipo == 'C' %}
+            <a class="list-group-item list-group-item-action {% if section == 'direcciones.registrar' %}active{% endif %}" href="/perfil/direcciones/registrar/">Registrar nueva dirección</a>
+            <a class="list-group-item list-group-item-action {% if section == 'direcciones' %}active{% endif %}" href="/perfil/direcciones/">Direcciones registradas</a>
+            <a class="list-group-item list-group-item-action {% if section == 'compras' %}active{% endif %}" href="/perfil/compras/">Ver compras</a>
+            {% elif request.user.tipo == 'E' or request.user.tipo == 'A' %}
+            <a class="list-group-item list-group-item-action {% if section == 'fabricas.registrar' %}active{% endif %}" href="/administracion/fabricas/registrar/">Registrar fábrica</a>
+            <a class="list-group-item list-group-item-action {% if section == 'fabricas' %}active{% endif %}" href="/administracion/fabricas/">Administrar fábricas</a>
+            <a class="list-group-item list-group-item-action {% if section == 'categorias.registrar' %}active{% endif %}" href="/administracion/categorias/registrar/">Registrar categoría</a>
+            <a class="list-group-item list-group-item-action {% if section == 'categorias' %}active{% endif %}" href="/administracion/categorias/">Administrar categorías</a>
+            <a class="list-group-item list-group-item-action {% if section == 'productos.registrar' %}active{% endif %}" href="/administracion/productos/registrar/">Registrar producto</a>
+            <a class="list-group-item list-group-item-action {% if section == 'inventario' %}active{% endif %}" href="/administracion/inventario/">Inventario</a>
+            <a class="list-group-item list-group-item-action {% if section == 'pedidos.registrar' %}active{% endif %}" href="/administracion/pedidos/registrar/">Crear pedido</a>
+            <a class="list-group-item list-group-item-action {% if section == 'pedidos' %}active{% endif %}" href="/administracion/pedidos/">Administrar pedidos</a>
+            {% endif %}
+            {% if request.user.tipo == 'A' %}
+            <a class="list-group-item list-group-item-action {% if section == 'usuarios.registrar' %}active{% endif %}" href="/administracion/usuarios/registrar/">Registrar usuario</a>
+            <a class="list-group-item list-group-item-action {% if section == 'usuarios' %}active{% endif %}" href="/administracion/usuarios/">Administrar usuarios</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-9">
+        {% block subcontent %}
+        <h4>Actualizar perfil</h4>
+        <form class="form" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="username" name="username" value="{{ request.user.username }}" readonly disabled>
+                <label for="username">Nombre de usuario</label>
+                <div class="form-text invalid-feedback">{{ form.username.errors }}</div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ request.user.first_name }}"  required>
+                <label for="first_name">Nombre(s)</label>
+                <div class="form-text invalid-feedback">{{ form.first_name.errors }}</div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="last_name" name="last_name"  value="{{ request.user.last_name }}"  required>
+                <label for="last_name">Apellido(s)</label>
+                <div class="form-text invalid-feedback">{{ form.last_name.errors }}</div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="email" class="form-control" id="email" name="email"  value="{{ request.user.email }}" readonly disabled>
+                <label for="email">Correo electrónico</label>
+                <div class="form-text invalid-feedback">{{ form.email.errors }}</div>
+            </div>
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-success btn-lg" style="background-color: #20ae00;" type="submit" name="submit">
+                    Actualizar mis datos
+                </button>
+            </div>
+        </form>
+        {% endblock subcontent %}
+    </div>
+</div>
+{% endblock main %}

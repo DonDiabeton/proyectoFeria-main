@@ -1,0 +1,51 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Compras</h4>
+{% if compras %}
+<div class="row">
+    {% for compra in compras %}
+    <div class="col-md-6">
+        <div class="bg-light px-3">
+            <div class="my-3 py-3 px-3">
+                <p><strong>{{ compra }}</strong></p>
+                <p>
+                    Estado: <strong>{{ estados|get_value:compra.estado }}</strong>
+                    <br>
+                    Fecha: <strong>{{ compra.fecha }}</strong>
+                    <br>
+                    Nombre: <strong>{{ compra.nombre }}</strong>
+                    <br>
+                    NIT: <strong>{{ compra.nit }}</strong>
+                    <br>
+                    Dirección: <strong>{{ compra.direccion }}</strong>
+                    {% if compra.telefono %}
+                    <br>
+                    Teléfono: <strong>{{ compra.telefono }}</strong>
+                    {% endif %}
+                    <br>
+                    Total: <strong>Q. {{ compra.total }}</strong>
+                </p>
+                <div class="text-center">
+                    <a href="/perfil/compras/detalle/{{ compra.id }}/" class="btn btn-warning">Ver detalle</a>
+                    {% if compra.estado == '1' %}
+                    <a href="/perfil/compras/cancelar/{{ compra.id }}/" class="btn btn-danger">Cancelar pedido</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+{% else %}
+<div class="row pt-3">
+    <div class="col-md-12 container text-center" style="height: calc(100% - 50px);">
+        <br>
+        No hay direcciones registradas
+        <br>
+        <a href="/perfil/direcciones/registrar/">Registrar nueva dirección</a>
+    </div>
+</div>
+{% endif %}
+{% endblock subcontent %}

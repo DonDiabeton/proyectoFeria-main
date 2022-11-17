@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Nuevo pedido{% endblock title %}
+
+
+{% block main %}
+    <div class="row pt-3">
+        <div class="col-md-9 container">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="{{ form.nombre.id_for_label }}" class="col-sm-2 col-form-label text-end">
+                        <strong>{{ form.nombre.label }}</strong>
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="nombre" max_length="100" required="required"
+                        value="{% if form.nombre.value %}{{ form.nombre.value }}{% else %}{{ request.user }}{% endif %}">
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-text col-sm-9">{{ form.nombre.errors }}</div>
+                </div>
+                <div class="row mb-3">
+                    <label for="{{ form.nit.id_for_label }}" class="col-sm-2 col-form-label text-end">
+                        <strong>{{ form.nit.label }}</strong>
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="nit" max_length="12" required="required"
+                        value="{% if form.nit.value %}{{ form.nit.value }}{% else %}C/F{% endif %}">
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-text col-sm-9">{{ form.nit.errors }}</div>
+                </div>
+                <div class="row mb-3">
+                    <label for="{{ form.direccion.id_for_label }}" class="col-sm-2 col-form-label text-end">
+                        <strong>{{ form.direccion.label }}</strong>
+                    </label>
+                    <div class="col-sm-9">
+                        <select class="form-select" name="direccion" required="required">
+                            {% for direccion in direcciones %}
+                            <option value="{{ direccion.id }}">{{ direccion }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-text col-sm-9">{{ form.direccion.errors }}</div>
+                </div>
+                <div class="row mb-3">
+                    <label for="{{ form.telefono.id_for_label }}" class="col-sm-2 col-form-label text-end">
+                        <strong>{{ form.telefono.label }}</strong>
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="telefono" max_length="12">
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-text col-sm-9">{{ form.telefono.errors }}</div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <th>Cant.</th>
+                        <th>Descripción</th>
+                        <th>P. Unitario</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        {% for item in detalles %}
+                        <tr>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.product.nombre }}</td>
+                            <td>{{ item.product.moneda }} {{ item.product.precio }}</td>
+                            <td>{{ item.product.moneda }} {{ item.subtotal }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th>Total</th>
+                        <th>Q {{ total }}</th>
+                    </tfoot>
+                </table>
+                <div class="text-center pt-2">
+                    <a href="/tienda/carrito/" class="btn btn-primary btn-block">
+                        Volver al carrito
+                    </a>
+                    <button type="submit" class="btn btn-warning btn-block">
+                        Crear compra
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock main %}

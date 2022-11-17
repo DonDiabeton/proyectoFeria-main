@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Carrito{% endblock title %}
+
+
+{% block main %}
+    {% if carrito %}
+    <div class="row pt-3">
+        <div class="col-md-9 container">
+        {% for item in carrito %}
+            <div id="item{{ item.product.id }}" class="bg-light row" style"padding: 8px 8px 0 0">
+                <div class="col-md-3">
+                    <span>&nbsp;</span>
+                    <div class="bg-light text-center">
+                        <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 128px; border-radius: 15px;">
+                            <img src="{{ item.product.imagen }}" alt="{{ item.product.nombre }}" height="100%">
+                        </div>
+                        <a href="/tienda/producto/{{ item.product.id }}" style="width: 80%; background-color: #20ae00; color: white;" class="btn btn-ligth mt-2"  >Detalles</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="my-3 py-3">
+                        <h4>{{ item.product.nombre }}</h4>
+                        <p class="text-truncate"><small>{{ item.product.descripcion }}</small></p>
+                        <p><small>Precio unitario: <strong>{{ item.product.moneda }}. {{ item.product.precio }}</strong></small></p>
+                        <div class="col">
+                            <div class="form-inline form-control-sm mt-3" action="#" method="post">
+                                <label for="quantity">Cantidad</label>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="remove_from_carrito({{ item.product.id }}, {{ item.product.precio }});">-</button>
+                                    <input id="quantity{{ item.product.id }}" type="text" class="form-control text-center" value="{{ item.quantity }}" style="width: 96px;" readonly>
+                                    <button type="button" class="btn btn-outline-secondary" onclick="add_to_carrito({{ item.product.id }}, {{ item.product.precio }});">+</button>
+                                </div>
+                                <label for="subtotal">&nbsp;Subtotal</label>
+                                <div class="btn-group">
+                                    <span class="input-group-text">{{ item.product.moneda }}</span>
+                                    <input id="subtotal{{ item.product.id }}" type="text" class="form-control" value="{{ item.subtotal }}" style="width: 96px;" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        {% if item.product.unidades <= item.quantity %}
+                        <div class="text-danger">
+                            <p>
+                                Actualmente se tienen disponibles sólo <strong>{{ item.product.unidades }} unidades</strong>,
+                                por favor, reduce la cantidad en tu carrito e ingresa el pedido nuevamente.<br>
+                                Recuerda que las unidades pueden alterarse por pedidos ingresados o cancelados de otros usuarios.
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <span>&nbsp;</span>
+        {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <div class="container text-center">
+                <div class="bg-light row" style"padding: 8px 8px 0 0">
+                    <div class="my-3 py-3">
+                        <h3>Subtotal</h3>
+                        <h5 class="strong" id="subtotal">$CLP. 0.0</h5>
+                        <a href="/tienda/compra/" type="button" class="btn btn-ligth" style="background-color: #20ae00; color: white;">Compra</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row pt-3">
+        <div class="col-md-12 container text-center" style="height: calc(100% - 50px);">
+            <br>
+            No hay artículos agregados al carrito
+            <br>
+            <a href="/tienda/">Revisar el catálogo</a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock main %}

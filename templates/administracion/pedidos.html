@@ -1,0 +1,37 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+{% for p in pedidos %}
+<h4>Pedidos {{ p.titulo }}</h4>
+<div class="row pt-3 pb-5">
+    <div class="scroll" >
+        <table class="table table-hover">
+            <thead>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Fábrica</th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                {% for pedido in p.listado %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ pedido.fecha }}</td>
+                    <td>{{ pedido.usuario }}</td>
+                    <td>Q {{ pedido.total }}</td>
+                    <td>
+                        <a href="/administracion/pedidos/detalle/{{ pedido.id }}/" class="btn btn-sm btn-warning mt-1">Ver detalle</a>
+                        {% if pedido.estado == 'I' %}
+                        <a href="/administracion/pedidos/recibir/{{ pedido.id }}/" class="btn btn-sm btn-warning mt-1">Confirmar recepción</a>
+                        <a href="/administracion/pedidos/cancelar/{{ pedido.id }}/" class="btn btn-sm btn-danger mt-1">Cancelar pedido</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endfor %}
+{% endblock subcontent %}

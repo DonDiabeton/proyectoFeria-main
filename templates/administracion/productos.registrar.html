@@ -1,0 +1,77 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Registrar producto</h4>
+<form class="form" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
+        oninput="remove_class('nombre', 'is-invalid');" id="nombre" name="nombre"
+        value='{% if request.method == 'POST' %}{{ form.nombre.value }}{% endif %}' required>
+        <label for="nombre">Nombre</label>
+        <div class="form-text invalid-feedback">{{ form.nombre.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <textarea rows="3" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}"
+        oninput="remove_class('descripcion', 'is-invalid');" id="descripcion" name="descripcion"
+        value='{% if request.method == 'POST' %}{{ form.descripcion.value }}{% endif %}' required></textarea>
+        <label for="descripcion">Descripción</label>
+        <div class="form-text invalid-feedback">{{ form.descripcion.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="number" step=0.01 class="form-control {% if form.precio.errors %}is-invalid{% endif %}"
+        oninput="remove_class('precio', 'is-invalid');" id="precio" name="precio" onchange="formatear_con_decimales('precio')"
+        value='{% if request.method == 'POST' %}{{ form.precio.value }}{% endif %}' required>
+        <label for="precio">Precio de venta (Q)</label>
+        <div class="form-text invalid-feedback">{{ form.precio.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="number" step=0.01 class="form-control {% if form.precio_pedido.errors %}is-invalid{% endif %}"
+        oninput="remove_class('precio_pedido', 'is-invalid');" id="precio_pedido" name="precio_pedido" onchange="formatear_con_decimales('precio_pedido')"
+        value='{% if request.method == 'POST' %}{{ form.precio_pedido.value }}{% endif %}' required>
+        <label for="precio_pedido">Precio de compra (Q)</label>
+        <div class="form-text invalid-feedback">{{ form.precio_pedido.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control {% if form.imagen.errors %}is-invalid{% endif %}"
+        oninput="remove_class('imagen', 'is-invalid');" id="imagen" name="imagen"
+        value='{% if request.method == 'POST' %}{{ form.imagen.value }}{% endif %}' required>
+        <label for="imagen">URL de imágen</label>
+        <div class="form-text invalid-feedback">{{ form.imagen.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <select class="form-select" name="estado" required="required">
+            {% for key, value in estados.items %}
+            <option value="{{ key }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <label for="tipo">Estado</label>
+        <div class="form-text invalid-feedback">{{ form.estado.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <select class="form-select" name="categoria" required="required">
+            {% for categoria in categorias %}
+            <option value="{{ categoria.id }}">{{ categoria }}</option>
+            {% endfor %}
+        </select>
+        <label for="categoria">Categoria</label>
+        <div class="form-text invalid-feedback">{{ form.categoria.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <select class="form-select" name="fabrica" required="required">
+            {% for fabrica in fabricas %}
+            <option value="{{ fabrica.id }}">{{ fabrica }}</option>
+            {% endfor %}
+        </select>
+        <label for="fabrica">Fábrica</label>
+        <div class="form-text invalid-feedback">{{ form.fabrica.errors }}</div>
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-success btn-lg" style="background-color: #20ae00;" type="submit" name="submit">
+            Registrar producto
+        </button>
+        <a href="/administracion/inventario/" class="btn btn-lg btn-danger">Cancelar</a>
+    </div>
+</form>
+{% endblock subcontent %}

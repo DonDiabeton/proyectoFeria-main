@@ -1,0 +1,44 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Actualizar perfil de {{ usuario }}</h4>
+<form class="form" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control" id="username" value="{{ usuario.username }}" readonly disabled>
+        <label for="username">Nombre de usuario</label>
+        <div class="form-text invalid-feedback">{{ form.username.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ usuario.first_name }}"  required>
+        <label for="first_name">Nombre(s)</label>
+        <div class="form-text invalid-feedback">{{ form.first_name.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control" id="last_name" name="last_name"  value="{{ usuario.last_name }}"  required>
+        <label for="last_name">Apellido(s)</label>
+        <div class="form-text invalid-feedback">{{ form.last_name.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="email" class="form-control" id="email" value="{{ usuario.email }}" readonly disabled>
+        <label for="email">Correo electrónico</label>
+        <div class="form-text invalid-feedback">{{ form.email.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <select class="form-select" name="tipo" required="required">
+            {% for key, value in estados.items %}
+            <option value="{{ key }}" {% if usuario.tipo == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+        <label for="tipo">Tipo de usuario</label>
+        <div class="form-text invalid-feedback">{{ form.tipo.errors }}</div>
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-success btn-lg" style="background-color: #20ae00;" type="submit" name="submit">
+            Actualizar datos
+        </button>
+        <a href="/administracion/usuarios/" class="btn btn-lg btn-danger">Cancelar</a>
+    </div>
+</form>
+{% endblock subcontent %}

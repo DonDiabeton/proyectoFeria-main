@@ -1,0 +1,28 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Registrar nueva dirección</h4>
+<form method="post">
+    {% csrf_token %}
+    {% for campo in form %}
+    {% if campo.name not in custom_fields %}
+    <div class="form-floating mb-2">
+        <input type="{% if campo.name == 'zona' %}number{% else %}text{% endif %}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" value="{% if campo.value %}{{ campo.value }}{% endif %}" required>
+        <label for="{{ campo.name }}">{{ campo.name }}</label>
+        <div class="form-text">{{ campo.errors }}</div>
+    </div>
+    {% elif campo.name == 'referencia' %}
+    <div class="form-floating mb-2">
+        <textarea class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" rows="3">{% if campo.value %}{{ campo.value }}{% endif %}</textarea>
+        <label for="{{ campo.name }}">{{ campo.name }}</label>
+        <div class="form-text">{{ campo.errors }}</div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <div class="d-grid gap-2">
+        <button class="btn btn-warning btn-lg mb-3" type="submit" name="submit">
+            Crear nueva dirección
+        </button>
+    </div>
+</form>
+{% endblock subcontent %}

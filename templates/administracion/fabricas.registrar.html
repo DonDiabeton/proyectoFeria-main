@@ -1,0 +1,38 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Registrar fábrica</h4>
+<form class="form" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
+        oninput="remove_class('nombre', 'is-invalid');" id="nombre" name="nombre"
+        value='{% if request.method == 'POST' %}{{ form.nombre.value }}{% endif %}' required>
+        <label for="nombre">Nombre</label>
+        <div class="form-text invalid-feedback">{{ form.nombre.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <select class="form-select" name="estado" required="required">
+            {% for key, value in estados.items %}
+            <option value="{{ key }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <label for="tipo">Estado</label>
+        <div class="form-text invalid-feedback">{{ form.estado.errors }}</div>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control {% if form.tipo.errors %}is-invalid{% endif %}"
+        oninput="remove_class('tipo', 'is-invalid');" id="tipo" name="tipo"
+        value='{% if request.method == 'POST' %}{{ form.tipo.value }}{% endif %}' required>
+        <label for="tipo">Tipo</label>
+        <div class="form-text invalid-feedback">{{ form.tipo.errors }}</div>
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-success btn-lg" style="background-color: #20ae00; border:0ch;" type="submit" name="submit">
+            Registrar fábrica
+        </button>
+        <a href="/administracion/fabricas/" class="btn btn-lg btn-danger">Cancelar</a>
+    </div>
+</form>
+{% endblock subcontent %}

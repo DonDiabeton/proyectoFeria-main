@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Procesadores{% endblock title %}
+
+
+{% block main %}
+    <div class="row">
+    {% for product in products %}
+        <div class="col-xl-4 col-md-6 col-xs-12">
+            <div class="bg-light text-center">
+                <div class="mt-3 pt-3">
+                    <h2>{{ product.nombre }}</h2>
+                    <div class="mx-3 px-3">
+                        <p class="text-truncate">{{ product.descripcion }}</p>
+                    </div>
+                </div>
+                <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 200px; border-radius: 21px 21px 0 0;">
+                    <img src="{{ product.imagen }}" alt="{{ product.nombre }}" height="100%">
+                </div>
+                <div class="pt-3">
+                    {% if product.unidades == 0 %}
+                    <p class="text-danger">Agotado</p>
+                    {% elif product.unidades <= 10 %}
+                    <p class="text-primary">Últimas unidades</p>
+                    {% else %}
+                    <p>Precio unitario: <strong>{{ product.moneda }} {{ product.precio }}</strong></p>
+                    {% endif %}
+                </div>
+                <div class="pb-3">
+                    <a href="/tienda/producto/{{ product.id }}" style="background-color: #20ae00; color:white;" class="btn btn-light">Ver detalles</a>
+                    <button type="button" class="btn btn-light" style="background-color:#b88700; color:white;" onclick="add_to_carrito({{ product.id }});" {% if product.unidades == 0 %}disabled{% endif %}>Añadir al carro</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock main %}

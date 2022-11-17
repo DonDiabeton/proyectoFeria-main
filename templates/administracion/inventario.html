@@ -1,0 +1,42 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Inventario</h4>
+<div class="row pt-3">
+    <div class="scroll" >
+        <table class="table table-hover">
+            <thead>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Unidades</th>
+                <th>Precio de venta</th>
+                <th>Precio de compra</th>
+                <th>Categoría</th>
+                <th>Fábrica</th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.unidades }}</td>
+                    <td>{{ producto.moneda }} {{ producto.precio }}</td>
+                    <td>{{ producto.moneda }} {{ producto.precio_pedido }}</td>
+                    <td>{{ producto.categoria }}</td>
+                    <td>{{ producto.fabrica }}</td>
+                    <td>
+                        {% if producto.estado == 'A' %}
+                        <a href="/administracion/productos/editar/{{ producto.id }}/" class="btn btn-sm btn-warning mt-1">Editar producto</a>
+                        <a href="/administracion/productos/desactivar/{{ producto.id }}/" class="btn btn-sm btn-danger mt-1">Desactivar producto</a>
+                        {% else %}
+                        <a href="/administracion/productos/activar/{{ producto.id }}/" class="btn btn-sm btn-success mt-1">Activar producto</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock subcontent %}

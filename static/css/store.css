@@ -1,0 +1,23 @@
+
+.bg-store {
+    background-image: url(https://img.freepik.com/fotos-premium/ilustracion-3d-luz-neon-purpura-fondo-pared-ladrillo-grunge_334678-443.jpg);
+    background-size: 100%;
+    border: 0px;
+
+}
+.fg-store {
+    color: rgb(220, 1, 147);
+  
+}
+.space-top {
+    margin-top: 72px;
+}
+.scroll {
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.titulo {
+
+}
+

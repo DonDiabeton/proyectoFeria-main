@@ -1,0 +1,43 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Direcciones registradas</h4>
+{% if direcciones %}
+<div class="row">
+    {% for direccion in direcciones %}
+    <div class="col-md-6">
+        <div class="bg-light px-3">
+            <div class="my-3 py-3 px-3">
+                <p >
+                    Departamento: <strong>{{ direccion.departamento }}</strong>
+                    <br>
+                    Municipio: <strong>{{ direccion.municipio }}</strong>
+                    <br>
+                    Zona: <strong>{{ direccion.zona }}</strong>
+                    <br>
+                    Dirección: <strong>{{ direccion.direccion }}</strong>
+                    {% if direccion.referencia %}
+                    <br>
+                    Referencia: <strong>{{ direccion.referencia }}</strong>
+                    {% endif %}
+                </p>
+                <div class="text-center">
+                    <a href="/perfil/direcciones/eliminar/{{ direccion.id }}" class="btn btn-danger">Eliminar dirección</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+{% else %}
+<div class="row pt-3">
+    <div class="col-md-12 container text-center" style="height: calc(100% - 50px);">
+        <br>
+        No hay direcciones registradas
+        <br>
+        <a href="/perfil/direcciones/registrar/">Registrar nueva dirección</a>
+    </div>
+</div>
+{% endif %}
+{% endblock subcontent %}

@@ -1,0 +1,33 @@
+{% extends "usuario/perfil.html" %}
+
+{% block subcontent %}
+<h4>Administrar categorías</h4>
+<div class="row pt-3">
+    <div class="col-md-12" >
+        <table class="table table-hover">
+            <thead>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.id }}</td>
+                    <td>{{ categoria.nombre }}</td>
+                    <td>{{ estados|get_value:categoria.estado }}</td>
+                    <td>
+                        {% if categoria.estado == 'A' %}
+                        <a href="/administracion/categorias/desactivar/{{ categoria.id }}/" class="btn btn-sm btn-danger mt-1">Desactivar categorías</a>
+                        {% else %}
+                        <a href="/administracion/categorias/activar/{{ categoria.id }}/" class="btn btn-sm btn-success mt-1">Activar categorías</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock subcontent %}
