@@ -17,7 +17,8 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
-.titulo {
-
+body {
+    background-image: url("/static/img/fondopaginaferia.jpg");
+    background-size: 100%;
 }
 
